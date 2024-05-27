@@ -1,14 +1,13 @@
 package br.com.fiap.fastfood.adapter.inbound.controller;
 
 import br.com.fiap.fastfood.adapter.inbound.controller.request.CreateCustomerRequest;
+import br.com.fiap.fastfood.adapter.inbound.controller.response.CustomerResponse;
 import br.com.fiap.fastfood.domain.domain.Customer;
 import br.com.fiap.fastfood.domain.domain.Error;
 import br.com.fiap.fastfood.domain.ports.inbound.customer.CreateCustomerUseCasePort;
+import br.com.fiap.fastfood.domain.ports.inbound.customer.GetCustomerByCpfUseCasePort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
@@ -16,9 +15,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class CustomerController {
 
     private final CreateCustomerUseCasePort createCustomerUseCase;
+    private final GetCustomerByCpfUseCasePort getCustomerByCpfUseCase;
 
-    public CustomerController(CreateCustomerUseCasePort createCustomerUseCase) {
+    public CustomerController(CreateCustomerUseCasePort createCustomerUseCase, GetCustomerByCpfUseCasePort getCustomerByCpfUseCase) {
         this.createCustomerUseCase = createCustomerUseCase;
+        this.getCustomerByCpfUseCase = getCustomerByCpfUseCase;
     }
 
     @PostMapping
@@ -44,6 +45,16 @@ public class CustomerController {
         } else {
             return handleError(resultCustomer.getError().get());
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getCustomer(@RequestParam(required = true, name = "cpf") String cpf) {
+        var optCustomer = getCustomerByCpfUseCase.execute(cpf);
+        if (optCustomer.isPresent()) {
+            return ResponseEntity.ok(CustomerResponse.fromDomain(optCustomer.get()));
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
     private ResponseEntity<?> handleError(Error error) {
