@@ -115,6 +115,6 @@ O projeto utiliza o PostgreSQL como banco de dados. A configuração do banco de
 
 Este documento fornece uma visão geral do projeto FastFood, incluindo seu escopo, tecnologias utilizadas, estrutura do projeto e instruções para rodar a aplicação. Para mais detalhes sobre os endpoints da API, consulte a documentação Swagger.
 
-Se tiver qualquer dúvida ou encontrar algum problema, sinta-se à vontade para abrir uma issue no repositório ou entrar em contato com os mantenedores do projeto.
+Se tiver qualquer dúvida ou encontrar algum problema, sinta-se à vontade para abrir uma issue no repositório ou entrar em contato comigo mesmo, Igor Pereira.
 
 
