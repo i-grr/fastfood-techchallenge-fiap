@@ -18,6 +18,14 @@ public class Order {
 
     private BigDecimal total;
 
+    private Order(Long id, Customer customer, List<OrderItem> items, OrderStatus status, BigDecimal total) {
+        this.id = id;
+        this.customer = customer;
+        this.items = items;
+        this.status = status;
+        this.total = total;
+    }
+
     private Order(Customer customer, List<OrderItem> items, OrderStatus status, BigDecimal total) {
         this.customer = customer;
         this.items = items;
@@ -59,6 +67,7 @@ public class Order {
                 .collect(Collectors.toList());
 
         return new Order(
+                persistedEntity.getId(),
                 customer,
                 items,
                 persistedEntity.getStatus(),
