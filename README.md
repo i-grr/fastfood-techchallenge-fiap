@@ -39,7 +39,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 Clone o repositório do projeto:
 
 ```sh
-git clone <https://github.com/i-grr/fastfood-techchallenge-fiap.git
+git clone https://github.com/i-grr/fastfood-techchallenge-fiap.git
 cd fastfood
 ```
 
