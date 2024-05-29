@@ -11,23 +11,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateCustomerUseCase implements CreateCustomerUseCasePort {
 
-    private final SaveCustomerAdapterPort saveCustomerAdapterPort;
-    private final ExistsCustomerByDocumentAdapterPort existsCustomerByDocumentAdapterPort;
+    private final SaveCustomerAdapterPort saveCustomer;
+    private final ExistsCustomerByDocumentAdapterPort existsCustomerByDocument;
 
-    public CreateCustomerUseCase(SaveCustomerAdapterPort saveCustomerAdapterPort, ExistsCustomerByDocumentAdapterPort existsCustomerByDocumentAdapterPort) {
-        this.saveCustomerAdapterPort = saveCustomerAdapterPort;
-        this.existsCustomerByDocumentAdapterPort = existsCustomerByDocumentAdapterPort;
+    public CreateCustomerUseCase(SaveCustomerAdapterPort saveCustomer, ExistsCustomerByDocumentAdapterPort existsCustomerByDocument) {
+        this.saveCustomer = saveCustomer;
+        this.existsCustomerByDocument = existsCustomerByDocument;
     }
 
     @Override
     public Result<Customer> execute(Customer customer) {
-        var customerAlreadyExists = existsCustomerByDocumentAdapterPort.existsCustomerByDocument(customer.getDocument(), customer.getDocumentType());
+        var customerAlreadyExists = existsCustomerByDocument.existsCustomerByDocument(customer.getDocument(), customer.getDocumentType());
 
         if (customerAlreadyExists) {
             return Result.failure(Error.createUnprocessableEntityError("The provided document is already in use."));
         }
 
-        return Result.success(saveCustomerAdapterPort.save(customer));
+        return Result.success(saveCustomer.save(customer));
     }
 
 }

@@ -10,15 +10,15 @@ import java.util.Optional;
 @Component
 public class GetCustomerByCpfUseCase implements GetCustomerByCpfUseCasePort {
 
-    private final FindCustomerByCpfAdapterPort findCustomerByCpfAdapterPort;
+    private final FindCustomerByCpfAdapterPort findCustomerByCpf;
 
-    public GetCustomerByCpfUseCase(FindCustomerByCpfAdapterPort findCustomerByCpfAdapterPort) {
-        this.findCustomerByCpfAdapterPort = findCustomerByCpfAdapterPort;
+    public GetCustomerByCpfUseCase(FindCustomerByCpfAdapterPort findCustomerByCpf) {
+        this.findCustomerByCpf = findCustomerByCpf;
     }
 
     @Override
     public Optional<Customer> execute(String document) {
-        return findCustomerByCpfAdapterPort.findCustomerByCpf(document);
+        return findCustomerByCpf.findCustomerByCpf(document);
     }
 
 }

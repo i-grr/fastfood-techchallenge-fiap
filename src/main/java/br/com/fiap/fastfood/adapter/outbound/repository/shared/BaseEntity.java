@@ -24,6 +24,9 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
     public UUID getUuid() {
         return uuid;
     }
@@ -34,6 +37,14 @@ public abstract class BaseEntity implements Serializable {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     @PrePersist

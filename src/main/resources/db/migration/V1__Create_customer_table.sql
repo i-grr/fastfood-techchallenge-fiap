@@ -9,8 +9,9 @@ CREATE TABLE IF NOT EXISTS customer (
     email VARCHAR(64) NOT NULL,
     is_identified BOOLEAN NOT NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP
-    );
+    updated_at TIMESTAMP,
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE
+);
 
 CREATE INDEX IF NOT EXISTS idx_customer_document ON customer(document);
 CREATE INDEX IF NOT EXISTS idx_customer_email ON customer(email);
